@@ -16,3 +16,4 @@ C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulatio
 C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\bin\Debug\FileManipulation.pdb
 C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.exe
 C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.pdb
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.csprojResolveAssemblyReference.cache

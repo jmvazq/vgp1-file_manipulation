@@ -23,6 +23,11 @@ namespace FileManipulation
 {
     public partial class frmFileManipulation : Form
     {
+        #region Constants
+        const string APP_NAME = "Jessica_Text";
+        const string MASTER_DIR = "Jessica_Text";
+        const string BACKUPS_DIR = "_Backups";
+        #endregion
         #region Variables
         string fileName = string.Empty;
         string filePath = string.Empty;
@@ -79,14 +84,14 @@ namespace FileManipulation
                     saveFileDialog.FileName = newFileName;
 
                 // Create master projects directory if it doesn't exist
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text"))
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR))
                 {
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text");
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR);
 
                 }
 
                 // Set additional, initial dialog values
-                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text";
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR;
                 saveFileDialog.Filter = "Jessica Vazquez Files (*.jes)|*.jes";
                 DialogResult result = saveFileDialog.ShowDialog();
 
@@ -147,9 +152,9 @@ namespace FileManipulation
             try
             {
                 // Create Backups folder if it doesn't exist
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text\\_Backups"))
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR + "\\" + BACKUPS_DIR))
                 {
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text\\_Backups");
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR + "\\" + BACKUPS_DIR);
 
                 }
 
@@ -160,15 +165,15 @@ namespace FileManipulation
                 if (fileName != string.Empty && !fileName.EndsWith("_bak") && HasUnsavedChanges)
                 {
                     // Create project backup folder if it doesn't exist
-                    if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text\\_Backups\\" + fileName))
+                    if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR + "\\" + BACKUPS_DIR + "\\" + fileName))
                     {
-                        Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text\\_Backups\\" + fileName);
+                        Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR + "\\" + BACKUPS_DIR + "\\" + fileName);
 
                     }
 
                     // Save backup file
                     DateTime now = DateTime.Now;
-                    rtxtRutina.SaveFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text\\_Backups\\" + fileName + "\\" + fileName + "-" + now.ToString("MMddyyyyhhmm") + "_bak.jes");
+                    rtxtRutina.SaveFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR + "\\" + BACKUPS_DIR + "\\" + fileName + "\\" + fileName + "-" + now.ToString("MMddyyyyhhmm") + "_bak.jes");
                     lblStatus.Text = "Project backup saved on " + now.ToString("MM/dd/yyyy - hh:mm") + ".";
                     return true;
                 }
@@ -187,7 +192,7 @@ namespace FileManipulation
         {
             string fname = fileName == string.Empty ? "UNTITLED" : fileName;
             string title = HasUnsavedChanges ? fname + "*" : fname;
-            this.Text = title + " - " + "Jessica_Text";
+            this.Text = title + " - " + APP_NAME;
         }
 
         private void SetFileNameAndPath(string str)
@@ -235,9 +240,9 @@ namespace FileManipulation
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text"))
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text");
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Jessica_Text";
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR))
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR);
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR;
             openFileDialog.Filter = "Jessica Vazquez Files (*.jes)|*.jes";
             DialogResult result = openFileDialog.ShowDialog();
 
@@ -386,7 +391,7 @@ namespace FileManipulation
             frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailAttachment"].Text = filePath + fileName + ".jes";
 
             // Change window title
-            frmSendEmail.Text = fileName + ".jes - " + frmSendEmail.Text + " - Jessica_Text";
+            frmSendEmail.Text = fileName + ".jes - " + frmSendEmail.Text + " - " + APP_NAME;
         }
     }
 }
