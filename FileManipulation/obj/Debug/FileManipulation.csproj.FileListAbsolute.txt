@@ -1,0 +1,18 @@
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\bin\Debug\FileManipulation.exe.config
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\bin\Debug\FileManipulation.exe
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\bin\Debug\FileManipulation.pdb
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\obj\Debug\FileManipulation.frmFileManipulation.resources
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\obj\Debug\FileManipulation.Properties.Resources.resources
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\obj\Debug\FileManipulation.csproj.GenerateResource.Cache
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\obj\Debug\FileManipulation.exe
+C:\Users\aleja\OneDrive\Documents\Visual Studio 2015\Projects\FileManipulation\FileManipulation\obj\Debug\FileManipulation.pdb
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.frmFileManipulation.resources
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.frmSendEmail.resources
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.Properties.Resources.resources
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.csproj.GenerateResource.Cache
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.csproj.CoreCompileInputs.cache
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\bin\Debug\FileManipulation.exe.config
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\bin\Debug\FileManipulation.exe
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\bin\Debug\FileManipulation.pdb
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.exe
+C:\Users\arwym\Desktop\Video Game Programming I Contents\VGP1003_FileManipulation\FileManipulation\obj\Debug\FileManipulation.pdb
