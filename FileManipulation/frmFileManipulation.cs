@@ -182,7 +182,7 @@ namespace FileManipulation
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message); // displays an error
+                MessageBox.Show(ex.Message, "Error Saving!", MessageBoxButtons.OK, MessageBoxIcon.Error); // displays an error
                 return false;
             }
         }
@@ -232,7 +232,7 @@ namespace FileManipulation
             
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message); // displays an error
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error); // displays an error
             }
 
         }
@@ -319,54 +319,72 @@ namespace FileManipulation
 
         private void SendEmail(object sender, EventArgs e)
         {
-            try { 
-                MailMessage mail = new MailMessage();
+            try {
 
-                // SMTP Settings group
-                String server = frmSendEmail.Controls["grpSmtpSettings"].Controls["txtSmtpServer"].Text;
+                DialogResult sendEmailConfirm = MessageBox.Show("Send email?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (sendEmailConfirm == DialogResult.OK)
+                {
+                    if (frmSendEmail.Controls["grpSmtpSettings"].Controls["txtSmtpServer"].Text == string.Empty)
+                        throw new Exception("SMTP Server cannot be empty.");
+                    if (frmSendEmail.Controls["grpSmtpSettings"].Controls["txtSmtpPort"].Text == string.Empty)
+                        throw new Exception("SMTP Port cannot be empty.");
+                    if (frmSendEmail.Controls["grpSmtpSettings"].Controls["txtUsername"].Text == string.Empty || frmSendEmail.Controls["grpSmtpSettings"].Controls["txtPassword"].Text == string.Empty)
+                        throw new Exception("Mail Username and Password cannot be empty.");
+                    if (frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailFrom"].Text == string.Empty)
+                        throw new Exception("Sender email address ('From') cannot be empty.");
+                    if (frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailTo"].Text == string.Empty)
+                        throw new Exception("Sender email address ('To') cannot be empty.");
 
-                int port;
-                Int32.TryParse(frmSendEmail.Controls["grpSmtpSettings"].Controls["txtSmtpPort"].Text, out port);
+                    // Once validated gather email info
+                    MailMessage mail = new MailMessage();
 
-                String username = frmSendEmail.Controls["grpSmtpSettings"].Controls["txtUsername"].Text;
-                String password = frmSendEmail.Controls["grpSmtpSettings"].Controls["txtPassword"].Text;
-                bool enableSsl = ((CheckBox)frmSendEmail.Controls["grpSmtpSettings"].Controls["chkEnableSsl"]).Checked;
+                    // SMTP Settings group
+                    String server = frmSendEmail.Controls["grpSmtpSettings"].Controls["txtSmtpServer"].Text;
 
-                // Email Options group
-                String mailFrom = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailFrom"].Text;
-                String mailTo = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailTo"].Text;
-                String mailSubject = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailSubject"].Text;
-                String mailBody = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailBody"].Text;
-                String mailAttachmentName = filePath + fileName + ".jes";
+                    int port;
+                    Int32.TryParse(frmSendEmail.Controls["grpSmtpSettings"].Controls["txtSmtpPort"].Text, out port);
 
-                // Prepare email
-                SmtpClient SmtpServer = new SmtpClient(server);
-                mail.From = new MailAddress(mailFrom);
-                mail.To.Add(mailTo);
-                mail.Subject = mailSubject;
-                mail.Body = mailBody;
+                    String username = frmSendEmail.Controls["grpSmtpSettings"].Controls["txtUsername"].Text;
+                    String password = frmSendEmail.Controls["grpSmtpSettings"].Controls["txtPassword"].Text;
+                    bool enableSsl = ((CheckBox)frmSendEmail.Controls["grpSmtpSettings"].Controls["chkEnableSsl"]).Checked;
 
-                System.Net.Mail.Attachment attachment;
-                attachment = new System.Net.Mail.Attachment(mailAttachmentName);
-                mail.Attachments.Add(attachment);
+                    // Email Options group
+                    String mailFrom = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailFrom"].Text;
+                    String mailTo = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailTo"].Text;
+                    String mailSubject = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailSubject"].Text;
+                    String mailBody = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailBody"].Text;
+                    String mailAttachmentName = filePath + fileName + ".jes";
 
-                SmtpServer.Port = port;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(username, password);
-                SmtpServer.EnableSsl = enableSsl;
+                    // Prepare email
+                    SmtpClient SmtpServer = new SmtpClient(server);
+                    mail.From = new MailAddress(mailFrom);
+                    mail.To.Add(mailTo);
+                    mail.Subject = mailSubject;
+                    mail.Body = mailBody;
 
-                lblStatus.Text = "Sending email...";
-                SmtpServer.Send(mail);
+                    System.Net.Mail.Attachment attachment;
+                    attachment = new System.Net.Mail.Attachment(mailAttachmentName);
+                    mail.Attachments.Add(attachment);
 
-                frmSendEmail.Controls["strStatusBar"].Text = "Email sent to '" + mailTo + "'.";
+                    SmtpServer.Port = port;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential(username, password);
+                    SmtpServer.EnableSsl = enableSsl;
 
-                MessageBox.Show("Email sent!");
-                lblStatus.Text = "Email sent.";
+                    // Send
+                    lblStatus.Text = "Sending email...";
+                    SmtpServer.Send(mail);
+
+                    frmSendEmail.Controls["strStatusBar"].Text = "Email sent to '" + mailTo + "'.";
+
+                    MessageBox.Show("Email sent!");
+                    lblStatus.Text = "Email sent.";
+                }
             }
             catch (Exception ex)
             {
-                lblStatus.Text = "Error sending email!";
+                lblStatus.Text = "Error sending Email!";
                 frmSendEmail.Controls["strStatusBar"].Text = "Error sending email!";
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message, "Error sending email!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -374,7 +392,7 @@ namespace FileManipulation
         {
             if (!File.Exists(filePath + fileName + ".jes"))
             {
-                MessageBox.Show("File does not exist. To attach your project to an email, please save it first.", "Missing Attachment!");
+                MessageBox.Show("File does not exist. To attach your project to an email, please save it first.", "Missing Attachment!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -386,6 +404,9 @@ namespace FileManipulation
             // Add event handlers
             frmSendEmail.FormClosed += new FormClosedEventHandler(EmailFormClosed);
             frmSendEmail.Controls["btnSendEmail"].Click += new EventHandler(SendEmail);
+
+            // Set some defaults
+            frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailSubject"].Text = "File Delivery: " + fileName;
 
             // Display attachment info
             frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailAttachment"].Text = filePath + fileName + ".jes";
