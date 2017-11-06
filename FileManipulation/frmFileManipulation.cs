@@ -240,14 +240,19 @@ namespace FileManipulation
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            // Create master projects directory if it doesn't exist
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR))
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR);
+
+            // Display file dialog
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR;
             openFileDialog.Filter = "Jessica Vazquez Files (*.jes)|*.jes";
             DialogResult result = openFileDialog.ShowDialog();
 
             if (result != DialogResult.Cancel)
             {
+                // Load file
                 OpenFile(openFileDialog.FileName);
                 lblStatus.Text = "Project opened.";
             }
@@ -267,6 +272,7 @@ namespace FileManipulation
         private void btnDuplicate_Click(object sender, EventArgs e)
         {
             if (fileName != string.Empty)
+                // Duplicate is a 'Save As' with default name
                 SaveAs(this.fileName + "_copy");
         }
 

@@ -24,7 +24,7 @@ namespace FileManipulation
 
         private void frmSendEmail_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnSendEmail_Click(object sender, EventArgs e)
@@ -35,6 +35,11 @@ namespace FileManipulation
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void frmSendEmail_Validating(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }
