@@ -27,7 +27,9 @@ namespace FileManipulation
         const string APP_NAME = "Jessica_Text";
         const string MASTER_DIR = "Jessica_Text";
         const string BACKUPS_DIR = "_Backups";
+        const string EXT = ".jes";
         #endregion
+
         #region Variables
         string fileName = string.Empty;
         string filePath = string.Empty;
@@ -48,12 +50,12 @@ namespace FileManipulation
         {
             try
             {
-                if (!File.Exists(filePath + fileName + ".jes"))
+                if (!File.Exists(filePath + fileName + EXT))
                     return SaveAs();
 
                 if (fileName != string.Empty && HasUnsavedChanges)
                 {
-                    rtxtRutina.SaveFile(filePath + fileName + ".jes");
+                    rtxtRutina.SaveFile(filePath + fileName + EXT);
                     HasUnsavedChanges = false;
                     UpdateWindowTitle();
                 }
@@ -92,7 +94,7 @@ namespace FileManipulation
 
                 // Set additional, initial dialog values
                 saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR;
-                saveFileDialog.Filter = "Jessica Vazquez Files (*.jes)|*.jes";
+                saveFileDialog.Filter = "Jessica Vazquez Files (*" + EXT + ")|*" + EXT;
                 DialogResult result = saveFileDialog.ShowDialog();
 
                 if (result != DialogResult.Cancel)
@@ -117,8 +119,8 @@ namespace FileManipulation
 
                         // Project folder has the same name as fileName
                         filePath = filePath + fileName + "\\";
-                        // Save file as fileName/fileName.jes
-                        rtxtRutina.SaveFile(filePath + fileName + ".jes");
+                        // Save file as fileName/fileName.ext
+                        rtxtRutina.SaveFile(filePath + fileName + EXT);
 
                         HasUnsavedChanges = false;
                         UpdateWindowTitle();
@@ -158,7 +160,7 @@ namespace FileManipulation
 
                 }
 
-                if (!File.Exists(filePath + fileName + ".jes"))
+                if (!File.Exists(filePath + fileName + EXT))
                     return false;
 
                 // Make sure the file exists and that it is NOT another backup file
@@ -173,7 +175,7 @@ namespace FileManipulation
 
                     // Save backup file
                     DateTime now = DateTime.Now;
-                    rtxtRutina.SaveFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR + "\\" + BACKUPS_DIR + "\\" + fileName + "\\" + fileName + "-" + now.ToString("MMddyyyyhhmm") + "_bak.jes");
+                    rtxtRutina.SaveFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR + "\\" + BACKUPS_DIR + "\\" + fileName + "\\" + fileName + "-" + now.ToString("MMddyyyyhhmm") + "_bak" + EXT);
                     lblStatus.Text = "Project backup saved on " + now.ToString("MM/dd/yyyy - hh:mm") + ".";
                     return true;
                 }
@@ -247,7 +249,7 @@ namespace FileManipulation
 
             // Display file dialog
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + MASTER_DIR;
-            openFileDialog.Filter = "Jessica Vazquez Files (*.jes)|*.jes";
+            openFileDialog.Filter = "Jessica Vazquez Files (*" + EXT + ")|*" + EXT;
             DialogResult result = openFileDialog.ShowDialog();
 
             if (result != DialogResult.Cancel)
@@ -359,7 +361,7 @@ namespace FileManipulation
                     String mailTo = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailTo"].Text;
                     String mailSubject = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailSubject"].Text;
                     String mailBody = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailBody"].Text;
-                    String mailAttachmentName = filePath + fileName + ".jes";
+                    String mailAttachmentName = filePath + fileName + EXT;
 
                     // Prepare email
                     SmtpClient SmtpServer = new SmtpClient(server);
@@ -394,7 +396,7 @@ namespace FileManipulation
 
         private void btnStartEmail_Click(object sender, EventArgs e)
         {
-            if (!File.Exists(filePath + fileName + ".jes"))
+            if (!File.Exists(filePath + fileName + EXT))
             {
                 MessageBox.Show("File does not exist. To attach your project to an email, please save it first.", "Missing Attachment!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -413,10 +415,10 @@ namespace FileManipulation
             frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailSubject"].Text = "File Delivery: " + fileName;
 
             // Display attachment info
-            frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailAttachment"].Text = filePath + fileName + ".jes";
+            frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailAttachment"].Text = filePath + fileName + EXT;
 
             // Change window title
-            frmSendEmail.Text = fileName + ".jes - " + frmSendEmail.Text + " - " + APP_NAME;
+            frmSendEmail.Text = fileName + EXT + " - " + frmSendEmail.Text + " - " + APP_NAME;
         }
     }
 }
