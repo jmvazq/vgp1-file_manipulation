@@ -16,7 +16,7 @@ using System.Net.Mail;
 
 /*
  * TO DO:
- * Check why I can't access the checkbox's checked value in code. 
+ * Make more re-usable
  */
 
 namespace FileManipulation
@@ -128,7 +128,7 @@ namespace FileManipulation
                     }
                     else
                     {
-                        MessageBox.Show("Can't save your project inside Jessica_Text directory. Please choose another location.");
+                        MessageBox.Show("Can't save your project inside " + MASTER_DIR + " directory. Please choose another location.");
                     }
 
                     return false;
