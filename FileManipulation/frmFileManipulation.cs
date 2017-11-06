@@ -380,10 +380,8 @@ namespace FileManipulation
                     lblStatus.Text = "Sending email...";
                     SmtpServer.Send(mail);
 
-                    frmSendEmail.Controls["strStatusBar"].Text = "Email sent to '" + mailTo + "'.";
-
-                    MessageBox.Show("Email sent!");
-                    lblStatus.Text = "Email sent.";
+                    MessageBox.Show("Email sent to '" + mailTo + "'.");
+                    lblStatus.Text = "Email sent to '" + mailTo + "'.";
                 }
             }
             catch (Exception ex)
