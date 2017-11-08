@@ -298,7 +298,7 @@ namespace FileManipulation
         {
             if(HasUnsavedChanges)
             {
-                DialogResult result = MessageBox.Show("Do you want to save the changes?", "Unsaved Changes!", MessageBoxButtons.YesNoCancel);
+                DialogResult result = MessageBox.Show("Do you want to save the changes?", "Unsaved Changes!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Cancel)
                 {
                     e.Cancel = true;
@@ -319,6 +319,15 @@ namespace FileManipulation
             Backup();
         }
 
+        private void EmailFormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult cancelEmailConfirm = MessageBox.Show("Are you sure you want to close this window? All your input will be lost.", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (cancelEmailConfirm == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+        }
+
         private void EmailFormClosed(object sender, EventArgs e)
         {
             this.Enabled = true;
@@ -329,6 +338,7 @@ namespace FileManipulation
         {
             try {
 
+                // Only send email if the user confirms (presses OK) it!
                 DialogResult sendEmailConfirm = MessageBox.Show("Send email?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (sendEmailConfirm == DialogResult.OK)
                 {
@@ -389,8 +399,8 @@ namespace FileManipulation
             catch (Exception ex)
             {
                 lblStatus.Text = "Error sending Email!";
-                frmSendEmail.Controls["strStatusBar"].Text = "Error sending email!";
                 MessageBox.Show(ex.Message, "Error sending email!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("Error sending email: " + ex.ToString());
             }
         }
 
@@ -406,8 +416,9 @@ namespace FileManipulation
             frmSendEmail.Show();
             this.Enabled = false;
             frmSendEmail.Focus();
-                
+
             // Add event handlers
+            frmSendEmail.FormClosing += new FormClosingEventHandler(EmailFormClosing);
             frmSendEmail.FormClosed += new FormClosedEventHandler(EmailFormClosed);
             frmSendEmail.Controls["btnSendEmail"].Click += new EventHandler(SendEmail);
 
