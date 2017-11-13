@@ -371,8 +371,8 @@ namespace FileManipulation
                     String mailTo = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailTo"].Text;
                     String mailSubject = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailSubject"].Text;
                     String mailBody = frmSendEmail.Controls["grpEmailOptions"].Controls["txtEmailBody"].Text;
-                    String mailAttachmentName = filePath + fileName + EXT;
-
+                    String mailAttachmentName = filePath + fileName + EXT;;
+                    
                     // Prepare email
                     SmtpClient SmtpServer = new SmtpClient(server);
                     mail.From = new MailAddress(mailFrom);
